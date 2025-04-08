@@ -1,30 +1,36 @@
-function Assign() {
-    /*
-    - (구조)분해 할당
-      > 배열 분해 할당
-      > 객체 분해 할당
-    */
+function ArrowFun() {
+  const func1 = function(a, b) {
+      return a+b;
+  }
+  console.log(`func1 : ${func1(3,4)}`);
+  // console.log("func1 : " + func1(3,4));
 
-    // 1. 배열 분해 할당
-    // ES5
-    const points = [20, 30, 40];
-    const x1 = points[0];
-    const y1 = points[1];
-    const z1 = points[2];
-    console.log(`x1=${x1}, y1=${y1}, z1=${z1}`);
+  const func2 = (a, b) => {
+      return a+b;
+  }
 
-    // ES6
-    const [x2, y2, z2] = points;
-    console.log(`x2=${x2}, y2=${y2}, z2=${z2}`);
+  const func3 = (a, b) => a+b
+  console.log(`func3 : ${func3(1,2)}`);
 
-    // 두번째 값 무시
-    const [x3, , z3] = points;
-    console.log(`x3=${x3}, z3=${z3}`);
+  const func4 = a => a+5
+  console.log(`func4 : ${func4(7)}`);
 
-    //첫번째 값만 넣기
-    const [x4] = points;
-    console.log(`x4=$[x4]`);
+  const func5 = function(num) {
+      return function(value) {
+          return num+value;
+      }
+  }
 
-    // 
+  let func5Num = func5(5);
+  let result = func5Num(7);
+  console.log(`func5Num : ${func5Num}`);
+  console.log(`result : ${result}`);
+
+  result = func5(3)(4);
+  console.log(`result : ${result}`);
+
+  const func6 = num => value => num+value;
+  console.log(`func6 : ${func6(1)(2)}`);
 }
+
 export default ArrowFun;

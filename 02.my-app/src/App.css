@@ -1,3 +1,18 @@
+div {
+  background-color: darkolivegreen;
+  color: white;
+  padding: 50px;
+  text-align: center;
+}
 h1 {
-  color: hotpink;
+  color: red;
+}
+h3 {
+  color:coral;
+}
+.class1 {
+  color:aquamarine;
+}
+#id2 {
+  color:burlywood;
 }

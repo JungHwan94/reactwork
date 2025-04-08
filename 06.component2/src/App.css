@@ -3,12 +3,8 @@
 }
 
 header, footer {
-  background-color: grey;
+  background-color: black;
   color: white;
   height: 15vh;
   line-height: 15vh;
-}
-
-section {
-  height: 70vh;
 }

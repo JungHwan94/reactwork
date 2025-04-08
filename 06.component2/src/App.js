@@ -11,6 +11,7 @@ function App() {
         <h1>본문</h1>
         <Compo1/>
         <Compo1/>
+        <Compo1/>
       </section>
       <MyFooter/>
     </div>

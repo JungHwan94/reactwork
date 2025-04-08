@@ -1,17 +1,18 @@
 import { useState } from "react";
 
-
-
-const Light_on_off = () => {
+const LightOnOff = () => {
+    // light = true, false
     const [light, setLight] = useState(false);
-    return(
+    const [colorSt, setColorSt] = useState();
+    return (
         <>
-            {light ? <h2 style={{color:'red'}}>전구ON</h2> : <h2 style={{color:'gray'}}>전구OFF</h2>}
-            <button onClick={() => {setLight(!light)}}>
+            { light ? <h1 style={{color:'hotpink'}}>전구ON</h1> : <h1 style={{color:'gray'}}>전구OFF</h1>}
+            <button onClick={()=>{setLight(!light)}}>
                 {light ? "끄기" : "켜기"}
             </button>
         </>
     )
+
 }
 
-export default Light_on_off;
+export default LightOnOff;

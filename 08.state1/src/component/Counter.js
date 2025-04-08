@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const Counter = () => {
     /* Hook: react에서 상태관리를 위한 코드
              useState 사용

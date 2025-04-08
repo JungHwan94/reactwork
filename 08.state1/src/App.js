@@ -1,14 +1,18 @@
 import './App.css';
 import Counter from './component/Counter';
-import Light_on_off from './component/Light-on-off';
-import Member_enroll from './component/Member-enroll';
+import LightOnOff from './component/Light-on-off';
+import MemberEnroll from './component/Member-enroll';
 
 function App() {
   return (
     <div className="App">
-      <Counter /><hr/>
-      <Light_on_off /><hr/>
-      <Member_enroll />
+      <MemberEnroll/>
+      <hr/>
+      <Counter/>
+      <br/>
+      <hr/>
+      <br/>
+      <LightOnOff/>
     </div>
   );
 }

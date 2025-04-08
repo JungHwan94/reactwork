@@ -26,4 +26,30 @@ vscode에서 다운로드 받은 폴더 열고 ->
         (설치가 다 되면)
   폴더\프로젝트명>npm start
           (실행)
-  
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+오전 10:15 2025-04-07
+-실행
+cd @
+npm start
+
+-만드는거
+npx create-react-app @
+
+-END
+ctrl + c
+cd..
+
+
+component2
+
+
+compo1.js
+07.es6
+src/ArrowFunction/ArrowFunction.js
+
+09.state2
+src/component/View.js
+ 	       /Controller.js
+
+
+
