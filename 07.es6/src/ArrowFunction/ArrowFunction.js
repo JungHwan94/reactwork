@@ -9,9 +9,11 @@ function ArrowFun() {
       return a+b;
   }
 
+  // func1() 함수를 화살표 함수로 하면
   const func3 = (a, b) => a+b
   console.log(`func3 : ${func3(1,2)}`);
 
+  // 매개변수가 1개일때만 소괄호() 생략가능
   const func4 = a => a+5
   console.log(`func4 : ${func4(7)}`);
 
@@ -20,6 +22,9 @@ function ArrowFun() {
           return num+value;
       }
   }
+
+  const func7 = num => value => num+value; // 이런식으로 다 생략해서 가능
+
 
   let func5Num = func5(5);
   let result = func5Num(7);

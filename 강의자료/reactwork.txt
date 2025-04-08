@@ -50,6 +50,22 @@ src/ArrowFunction/ArrowFunction.js
 09.state2
 src/component/View.js
  	       /Controller.js
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+오전 10:00 2025-04-08
 
 
 
+
+
+
+----------------------------------------------
+-실행
+cd @
+npm start
+
+-만드는거
+npx create-react-app @
+
+-END
+ctrl + c
+cd..
