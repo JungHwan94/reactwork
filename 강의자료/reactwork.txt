@@ -53,11 +53,13 @@ src/component/View.js
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 오전 10:00 2025-04-08
 
+Compo.js
 
+component/Controller.js
 
+11.use-effect
 
-
-
+npm install react-bootstrap bootstrap
 ----------------------------------------------
 -실행
 cd @
