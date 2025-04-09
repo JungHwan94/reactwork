@@ -60,6 +60,17 @@ component/Controller.js
 11.use-effect
 
 npm install react-bootstrap bootstrap
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+오전 10:01 2025-04-09
+13.myblog
+
+14.todolist
+src/components/Header.js
+	        /Editor.js
+	        /List.js
+	        /Todoitem.js
+
+window + ; 이모티콘!
 ----------------------------------------------
 -실행
 cd @
