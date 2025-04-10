@@ -24,7 +24,7 @@ const List = ({todos}) => {
                 {
                     getSearchData().map((todo) =>
                         // <Todoitem todo = {todo} />
-                        <Todoitem {...todo} />
+                        <Todoitem {...todo} onUpdate={onUpdate}/>
                     )
                 }
             </div>

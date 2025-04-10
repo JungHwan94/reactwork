@@ -11,10 +11,10 @@ const Todoitem = (props) => {
 }
 */
 
-const Todoitem = ({isDone, content, date}) => {
+const Todoitem = ({id, isDone, content, date, onUpdate}) => {
   return (
       <div className='Todoitem'>
-          <input type='checkbox' />
+          <input type='checkbox' checked={isDone} onUpdate={() => {onUpdate(id)}}/>
           <span>{content}</span> 
           <span>{new Date(date).toLocaleDateString()}</span>
           <button>삭제💦</button>

@@ -71,6 +71,42 @@ src/components/Header.js
 	        /Todoitem.js
 
 window + ; 이모티콘!
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+오전 10:08 2025-04-10
+15.shopping-mall
+https://cheat-key.com/category/cody/225/ - // 이미지 다운
+
+{/* src 하위에 넣었을 때는 import하여 넣는다 */}
+            {/* <img src = {clothes1} width="80%"/> */}
+            <img src = "img/img1.jpg" width="80%" />
+            <h4>1</h4>
+            <p>바지</p>
+          </Col>
+          <Col>
+            {/* public/img 폴더에 그림이 있을 때 import 필요없음 */}
+            <img src = "/img/img2.jpg" width="80%"/>
+            <h4>2</h4>
+            <p>상의</p>
+          </Col>
+          <Col>
+            {/* public/img 폴더에 그림이 있고 배포할 때 url을 얻어와서 앞에 넣어준다 */}
+            {/* 배포시 tjoeun.com/abc/~~~  하위 경로일때는 그림을 못찾음. */}
+            {/* <img src = {process.env.PUBLIC_URL + '/img/clothes2.png'} /> */}
+            <img src = {${process.env.PUBLIC_URL}/img/img3.jpg} width="80%"/>
+            <h4>3</h4>
+            <p>자켓</p>
+          </Col>
+            {/* public/img 폴더에 그림이 있고 배포할때 url을 얻어와서 앞에 넣어준다 */}
+            {/*<img src = {${process.env.PUBLIC_URL}/img/img4.jpg} width="80%"/>*/}
+          {/*  <h4>{clothes[2].title}</h4>
+            <p>{clothes[2].price}</p>*/}
+
+src/data/ProductList.js
+src/pages/Detail.js
+	/Cart.js
+
+
+
 ----------------------------------------------
 -실행
 cd @
