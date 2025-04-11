@@ -104,9 +104,21 @@ https://cheat-key.com/category/cody/225/ - // 이미지 다운
 src/data/ProductList.js
 src/pages/Detail.js
 	/Cart.js
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+오전 11:07 2025-04-11
+/Detail.js
+    숫자의 상태를 저장하는 hook
+    숫자가 들어오면 아무것도 안하고, 문자가 들어오면 alert창 띄우기
 
+    Not a Number = isNaN => 숫자이면 false
 
+npm install @reduxjs/toolkit react-redux
 
+84866
+
+59406
+
+105600 + @
 ----------------------------------------------
 -실행
 cd @

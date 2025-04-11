@@ -9,17 +9,11 @@ import Detail from './pages/Detail';
 import axios from 'axios';
 
 /*  
-  * SPA의 단점
-    - 컴포넌트간의 STATE공유 어려움
-
-  * 공유저장 공간 사용
-    1. Context Api : 기본 탑재되어 있음
-       잘 안쓰는 이유 : 성능 이슈(하나만 변해도 하위의 모든것들을 재랜더링)
-                       재사용이 어렵다
-    2. Redux : 외부 라이브러리
-       주로 사용
-
-       설치하기 : npm install @reduxjs/toolkit react-redux
+  * axios (ajax 사용하기) 
+    : fetch() 사용할 수 있음. json의 형태로 자동 변경
+  
+      >  문서 : https://axios-http.com/kr/docs/intro)
+          1. 설치부터 시작
 */
 
 function App() {
