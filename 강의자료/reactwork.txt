@@ -119,6 +119,33 @@ npm install @reduxjs/toolkit react-redux
 59406
 
 105600 + @
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+오전 10:05 2025-04-14
+16.diary
+App.js에서 라우터 넣기
+설치: npm i react-router-dom
+
+src/resources/img/emotion1.png
+src/util/emotion-img.js
+
+Home: routes
+	/new
+	/diary
+	/edit
+	/없는 경로일때
+
+New: 일기쓰기
+
+뒤로가기버튼 	날짜		수정하기버튼
+		오늘의 감정
+		감정 이미지
+		텍스트로 일기 쓰기
+취소버튼				등록버튼
+New: 일기쓰기
+Diary: 일기 리스트 목록
+Edit: 일기 수정, 삭제
+
+
 ----------------------------------------------
 -실행
 cd @
