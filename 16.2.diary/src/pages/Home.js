@@ -33,10 +33,8 @@ const getMonthlyDate = (pivotDate, data) => {
 }
 
 const Home = (() => {
-    const [pivotDate, setPivotDate] = useState(new Date());
-
     const data = useContext(DiaryStateContext)
-    const monthlyData = getMonthlyDate(pivotDate, data)
+    const [pivotDate, setPivotDate] = useState(new Date());
 
     const onIncreaseMonth = () => {
         setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth() + 1))
@@ -47,12 +45,13 @@ const Home = (() => {
     }
     return (
         <div>
+            <h4>Home</h4>
             <Header 
                 title={`${pivotDate.getFullYear()}년 ${pivotDate.getMonth() + 1}월`}
                 leftChild = {<Button text={"<"} onClick={onDecreaseMonth} />}
                 rightChild = {<Button text={">"} onClick={onIncreaseMonth}/>} 
             />
-            <DiaryList data={monthlyData}/>
+            <DiaryList />
         </div>
     )
 })

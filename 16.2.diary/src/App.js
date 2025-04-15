@@ -9,28 +9,16 @@ import { useReducer, useRef, createContext } from 'react';
 const mockData = [
   {
     id : 1,
-    createDate : new Date("2025-04-15").getTime(),
+    createDate : new Date().getTime(),
     emotionId : 1,
     content : "1번 일기 내용"
   },
   {
     id : 2,
-    createDate : new Date("2025-04-03").getTime(),
+    createDate : new Date().getTime(),
     emotionId : 2,
     content : "2번 일기 내용"
-  },
-  {
-    id : 3,
-    createDate : new Date("2025-03-25").getTime(),
-    emotionId : 3,
-    content : "3번 일기 내용"
-  },
-  {
-    id : 4,
-    createDate : new Date("2025-02-17").getTime(),
-    emotionId : 4,
-    content : "4번 일기 내용"
-  },
+  }
 ]
 
 function reducer(state, action) {
@@ -39,22 +27,19 @@ function reducer(state, action) {
       return [action.data, ...state];
     case "UPDATE" :
       return state.map((item) => 
-        item.id == action.data.id ? action.data : item
+        String(item.id) === String(action.data.id) ? action.data : item
       )
     case "DELETE" :
-      return state.filter((item) => item.id != action.id)
+      return state.filter((item) => String(item.id) != String(action.id))
   }
 }
 
-export const DiaryStateContext = createContext();    // 상태 저장용
-export const DiaryDispathContext = createContext();   // dispath(액션처리용)
-  
 function App() {
   /*
     useReducer() : 상태관리, 상태 업데이트 hook
   */
   const [data, dispatch] = useReducer(reducer, mockData);
-  const idRef = useRef(5);
+  const idRef = useRef(3);
 
   // 일기 추가
   const onCreate = (createDate, emotionId, content) => {
@@ -91,21 +76,43 @@ function App() {
   }
 
   /*
+    * Context Api 사용(Redux 사용 대신)
     * createContext() : 전역상태를 공유하여 관리 
   */
+  const DiaryStateContext = createContext();    // 상태 저장용
+  const DiartDispathContext = createContext();   // dispath(액션처리용)
 
   return (
     <div className="App">
+      <button onClick={() => {
+        onCreate(new Date().getTime(), 3, "Hello")
+      }}>일기 추가</button>
+
+      <button onClick={() => {
+        onUpdate(1, new Date().getTime(), 3, "수정된 일기 입니다")
+      }}>일기 수정</button>
+
+      <button onClick={() => {
+        onDelete(1)
+      }}>일기 삭제</button>
+
+      <div>
+        <Link to={"/"}>Home</Link>
+        <Link to={"/new"}>New</Link>
+        <Link to={"/detail"}>Detail</Link>
+        <Link to={"/edit"}>Edit</Link>
+      </div>
+
       <DiaryStateContext.Provider value={data}>
-        <DiaryDispathContext.Provider value={{onCreate, onUpdate, onDelete}}>
+        <DiartDispathContext.Provider value={{onCreate, onUpdate, onDelete}}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/new" element={<New />} />
-            <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/edit/:id" element={<Edit />} />
+            <Route path="/detail" element={<Detail />} />
+            <Route path="/edit" element={<Edit />} />
             <Route path="/*" element={<div>잘못된 페이지 입니다</div>} />
           </Routes>
-        </DiaryDispathContext.Provider>
+        </DiartDispathContext.Provider>
       </DiaryStateContext.Provider>
     </div>
   );

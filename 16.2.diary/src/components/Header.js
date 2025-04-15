@@ -7,9 +7,6 @@ const Header = ({title, leftChild, rightChild}) => {
             <div className='header_center'>{title}</div>
             <div className='header_right'>{rightChild}</div>
         </header>
-
-
-// naviget -1 넣고 뒤로가기 만들기
     )
 }
 export default Header
