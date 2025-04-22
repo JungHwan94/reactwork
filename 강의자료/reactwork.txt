@@ -146,6 +146,18 @@ Diary: 일기 리스트 목록
 Edit: 일기 수정, 삭제
 
 21 20
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+오전 10:47 2025-04-17
+DB인스턴스 계정
+hwanyboy
+!boy
+
+cd shopping-mall
+npm runbuild
+
+aws/ubuntu/hwan <- build>libs>[file] 넣기
+
+
 ----------------------------------------------
 -실행
 cd @

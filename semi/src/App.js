@@ -1,34 +1,65 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import Navbar from './components/Navbar';
-
-import Calories from './page/calories';
-import Challenge from './page/challenge';
-import Exercise from './page/exercise';
-import Community from './page/community';
-import Calendar from './page/calendar';
-import MyInfo from './page/myinfo';
-import Login from './page/login';
-
+// 컴포넌트들 import
+import Navbar from './components/Navbar/Navbar';  
+import Main from './page/Main/main';  
+import Calories from './page/Calories/calories';  
+import Challenge from './page/Challenge/challenge';  
+import Exercise from './page/Exercise/exercise';  
+import Community from './page/Community/pages/Community';  // 경로 수정: 대소문자 일치
+import Calendar from './page/Calendar/calendar';  
+import MyInfo from './page/MyInfo/myinfo';  
+import Login from './page/Login/login';  
+import SignUp from './page/SignUp/SignUp';  
+import Write from './page/Community/pages/Write';  // 글 작성 페이지 추가
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAuthLoaded, setIsAuthLoaded] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('isLoggedIn');
+    if (stored === 'true') {
+      setIsLoggedIn(true);
+    }
+    setIsAuthLoaded(true);
+  }, []);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', 'true');
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userId');
+  };
+
+  if (!isAuthLoaded) return <div>로딩 중...</div>;
 
   return (
     <Router>
-      <Navbar />
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        handleLogout={handleLogout}
+        isAuthLoaded={isAuthLoaded}
+      />
       <Routes>
-         <Route path="/calories" element={<Calories />} />
-        <Route path="/challenge" element={<Challenge />} />
-        <Route path="/exercise" element={<Exercise />} />
-        <Route path="/community" element={<Community />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route
-          path="/myinfo"
-          element={isLoggedIn ? <MyInfo /> : <Navigate to="/login" replace />}
+          path="/"
+          element={isLoggedIn ? <Navigate to="/main" replace /> : <Login setIsLoggedIn={handleLogin} />}
         />
+        <Route path="/main" element={isLoggedIn ? <Main /> : <Navigate to="/" replace />} />
+        <Route path="/signup" element={<SignUp setIsLoggedIn={handleLogin} />} />
+        <Route path="/calendar" element={isLoggedIn ? <Calendar /> : <Navigate to="/" replace />} />
+        <Route path="/calories" element={isLoggedIn ? <Calories /> : <Navigate to="/" replace />} />
+        <Route path="/challenge" element={isLoggedIn ? <Challenge /> : <Navigate to="/" replace />} />
+        <Route path="/exercise" element={isLoggedIn ? <Exercise /> : <Navigate to="/" replace />} />
+        <Route path="/community" element={isLoggedIn ? <Community /> : <Navigate to="/" replace />} />
+        <Route path="/myinfo" element={isLoggedIn ? <MyInfo /> : <Navigate to="/" replace />} />
+        <Route path="/write" element={isLoggedIn ? <Write /> : <Navigate to="/" replace />} /> {/* /write 라우트 추가 */}
       </Routes>
     </Router>
   );
