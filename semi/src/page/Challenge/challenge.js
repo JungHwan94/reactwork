@@ -21,16 +21,17 @@ function Challenge() {
   }, []);
 
   useEffect(() => {
-    axios.get('/api/challenges')
+    axios.get('http://localhost:8080/api/challenges')
       .then(res => setChallenges(res.data))
       .catch(err => console.error("챌린지 로딩 실패:", err));
   }, []);
 
   useEffect(() => {
     if (userId) {
-      axios.get(`/api/challenges/today?userId=${userId}`)
+      axios.get(`http://localhost:8080/api/challenges/today?userId=${userId}`)
         .then(res => {
-          const titles = res.data.map(item => item.challengeTitle);
+          console.log("🔥 오늘의 챌린지 응답: ", res.data);  // ← 추가
+          const titles = console.log("🔥 전체 응답 확인: ", JSON.stringify(res.data, null, 2));
           const score = res.data.reduce((acc, cur) => acc + (cur.earnedPoints || 0), 0);
           setActiveChallenges(titles);
           setMyScore(score);
@@ -38,11 +39,12 @@ function Challenge() {
         .catch(err => console.error("오늘 챌린지 로딩 실패:", err));
     }
   }, [userId]);
+  
 
   const handleChallengeClick = async (title) => {
     if (!activeChallenges.includes(title)) {
       try {
-        await axios.post('/api/challenges/start', {
+        await axios.post('http://localhost:8080/api/challenges/start', {
           userId,
           challengeTitle: title
         });
@@ -59,7 +61,7 @@ function Challenge() {
     if (!found) return;
 
     try {
-      await axios.post('/api/challenges/complete', {
+      await axios.post('http://localhost:8080/api/challenges/complete', {
         userId,
         challengeTitle: title,
         earnedPoints: found.score
@@ -74,7 +76,7 @@ function Challenge() {
   };
 
   const filteredChallenges = challenges.filter(ch =>
-    (selectedLevel === '전체' || ch.level === selectedLevel) &&
+    (selectedLevel === '전체' || ch.difficulty === selectedLevel) &&
     ch.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -95,7 +97,7 @@ function Challenge() {
             activeChallengeObjects.map((item, idx) => (
               <div className="challenge-item-with-button" key={idx}>
                 <div className="challenge-info">
-                  <span className="challenge-meta">[{item.level} | {item.score}점]</span>
+                  <span className="challenge-meta">[{item.difficulty} | {item.score}점]</span>
                   <span className="challenge-title">{item.title}</span>
                 </div>
                 <button className="complete-button" onClick={() => handleComplete(item.title)}>
@@ -135,7 +137,7 @@ function Challenge() {
         {filteredChallenges.map((challenge, index) => (
           <div className="challenge-row" key={index}>
             <div className="challenge-info">
-              <span className="challenge-meta">[{challenge.level} | {challenge.score}점]</span>
+              <span className="challenge-meta">[{challenge.difficulty} | {challenge.score}점]</span>
               <span className="challenge-title">{challenge.title}</span>
             </div>
             <button

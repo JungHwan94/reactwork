@@ -348,13 +348,44 @@ SELECT * FROM v$database;
 
 
 
+-- ✅ 모든 테이블 재정의 및 데이터 삽입
+
+-- 1. 기존 테이블 삭제
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE challenge_participation CASCADE CONSTRAINTS';
+EXCEPTION WHEN OTHERS THEN NULL;
+END;
+/
+
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE challenges CASCADE CONSTRAINTS';
+EXCEPTION WHEN OTHERS THEN NULL;
+END;
+/
+
+-- 2. 챌린지 테이블 생성
 CREATE TABLE challenges (
-    challenge_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    title VARCHAR2(100) NOT NULL,
-    difficulty VARCHAR2(10) DEFAULT '초급',
-    CONSTRAINT chk_challenge_difficulty CHECK (difficulty IN ('초급', '중급', '고급'))
+  challenge_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  title VARCHAR2(100) NOT NULL,
+  difficulty VARCHAR2(10) DEFAULT '초급',
+  CONSTRAINT chk_challenge_difficulty CHECK (difficulty IN ('초급', '중급', '고급'))
 );
 
+-- 3. 참여 테이블 생성 (challenge_id 참조)
+CREATE TABLE challenge_participation (
+  participation_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  user_id VARCHAR2(50) NOT NULL,
+  challenge_id NUMBER NOT NULL,
+  status VARCHAR2(10) DEFAULT '진행 중',
+  joined_at DATE DEFAULT SYSDATE,
+  completed_at DATE,
+  earned_points NUMBER DEFAULT 0,
+  CONSTRAINT fk_challenge FOREIGN KEY (challenge_id) REFERENCES challenges(challenge_id),
+  CONSTRAINT chk_status CHECK (status IN ('진행 중', '완료', '취소'))
+);
+
+-- 4. 챌린지 데이터 전체 삽입
+-- 초급
 INSERT INTO challenges (difficulty, title) VALUES ('초급', '물 2L 마시기');
 INSERT INTO challenges (difficulty, title) VALUES ('초급', '30분 걷기');
 INSERT INTO challenges (difficulty, title) VALUES ('초급', '계단 10층 오르기');
@@ -375,6 +406,8 @@ INSERT INTO challenges (difficulty, title) VALUES ('초급', '누워서 자전�
 INSERT INTO challenges (difficulty, title) VALUES ('초급', 'TV 보면서 스트레칭 10분');
 INSERT INTO challenges (difficulty, title) VALUES ('초급', '1km 걷기 or 트레드밀');
 INSERT INTO challenges (difficulty, title) VALUES ('초급', '양발 벌리고 옆구리 늘리기 10회');
+
+-- 중급
 INSERT INTO challenges (difficulty, title) VALUES ('중급', '팔굽혀펴기 20회');
 INSERT INTO challenges (difficulty, title) VALUES ('중급', '스쿼트 50회');
 INSERT INTO challenges (difficulty, title) VALUES ('중급', '플랭크 1분');
@@ -415,6 +448,8 @@ INSERT INTO challenges (difficulty, title) VALUES ('중급', '러시안 트위�
 INSERT INTO challenges (difficulty, title) VALUES ('중급', '트위스트 런지 10회');
 INSERT INTO challenges (difficulty, title) VALUES ('중급', '플랭크 후 푸시업 번갈아 3세트');
 INSERT INTO challenges (difficulty, title) VALUES ('중급', '리버스 런지 + 니업 10회');
+
+-- 고급
 INSERT INTO challenges (difficulty, title) VALUES ('고급', '팔굽혀펴기 50회');
 INSERT INTO challenges (difficulty, title) VALUES ('고급', '스쿼트 100회');
 INSERT INTO challenges (difficulty, title) VALUES ('고급', '플랭크 3분');
@@ -454,4 +489,69 @@ INSERT INTO challenges (difficulty, title) VALUES ('고급', '스케이터 점�
 INSERT INTO challenges (difficulty, title) VALUES ('고급', '힙 브릿지 50회');
 INSERT INTO challenges (difficulty, title) VALUES ('고급', '싱글 레그 데드리프트 15회');
 INSERT INTO challenges (difficulty, title) VALUES ('고급', '브로드 점프 15회');
-INSERT INTO challenges (difficulty, title) VALUES ('고급', '코어 루틴 연속 수행 30분
+INSERT INTO challenges (difficulty, title) VALUES ('고급', '코어 루틴 연속 수행 30분');
+
+-- 5. 참여 기록 예시
+-- INSERT INTO challenge_participation (user_id, challenge_id) VALUES ('user01', 1);
+-- INSERT INTO challenge_participation (user_id, challenge_id) VALUES ('user02', 2);
+
+-- ✅ 완전한 클린 구조 재설정 완료
+-- 기존 challenges 테이블 삭제 후 재생성
+DROP TABLE challenge_participation CASCADE CONSTRAINTS;
+DROP TABLE challenges CASCADE CONSTRAINTS;
+
+CREATE TABLE challenges (
+    challenge_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title VARCHAR2(100) NOT NULL,
+    difficulty VARCHAR2(10) DEFAULT '초급',
+    start_date DATE,
+    end_date DATE,
+    score NUMBER,
+    CONSTRAINT chk_challenge_difficulty CHECK (difficulty IN ('초급', '중급', '고급'))
+);
+
+
+-- 오늘 날짜 기준 user01의 참여 기록을 만들어줍니다
+INSERT INTO challenge_participation (
+  user_id, challenge_id, status, joined_at, completed_at, earned_points
+) VALUES (
+  'user01', 1, '진행 중', SYSDATE, NULL, 0
+);
+DELETE FROM challenge_participation WHERE user_id = 'user01';
+INSERT INTO challenge_participation (
+  user_id, challenge_id, status, joined_at, completed_at, earned_points
+) VALUES (
+  'user01', 1, '진행 중', TRUNC(SYSDATE), NULL, 0
+);
+SELECT * FROM challenge_participation WHERE user_id = 'user01';
+
+SELECT column_name FROM all_tab_columns
+WHERE table_name = 'CHALLENGE_PARTICIPATION';
+
+SELECT * FROM challenge_participation WHERE ROWNUM <= 5;
+
+SELECT * FROM challenge_participation 
+WHERE user_id = 'user01' 
+  AND TRUNC(joined_at) = TRUNC(SYSDATE);
+
+SELECT * FROM challenge_participation WHERE user_id = 'user01';
+SELECT SYSDATE, CURRENT_DATE FROM DUAL;
+
+SELECT * FROM challenge_participation
+WHERE user_id = :userId
+  AND TO_CHAR(joined_at, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+
+SELECT user_id, joined_at FROM challenge_participation
+WHERE TRUNC(joined_at) = TRUNC(SYSDATE);
+
+SELECT user_id, joined_at 
+FROM challenge_participation
+WHERE user_id = :userId 
+  AND TRUNC(joined_at) = TRUNC(SYSDATE);
+
+SELECT *
+FROM challenge_participation
+WHERE user_id = 'user01'
+  AND TRUNC(joined_at) = TRUNC(SYSDATE);
+
+SELECT * FROM challenge_participation WHERE ROWNUM = 1;
