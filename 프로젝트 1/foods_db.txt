@@ -1,5 +1,5 @@
 DELETE FROM FOODS
-WHERE FOOD_ID IN (번호, 번호, 번호, ...);
+WHERE FOOD_ID IN (번호, 번호, 번호, ...); -- or BETWEEN 번호 TO 번호;
 COMMIT;
 
 
