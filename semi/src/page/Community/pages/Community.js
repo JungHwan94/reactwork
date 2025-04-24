@@ -4,7 +4,7 @@ import List from "../components/List";
 import SearchBar from "../components/SearchBar";
 import Pagination from "../components/Pagination";
 import { Link } from "react-router-dom";
-import './community.css';
+import "./community.css";
 
 const Community = () => {
   const [posts, setPosts] = useState([]);
@@ -39,23 +39,39 @@ const Community = () => {
 
   return (
     <div className="community-container">
-      <h1>커뮤니티 게시판</h1>
-      <Link to="/write">
-        <button>글 작성</button>
-      </Link>
-      <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} />
-      {filteredPosts.length > 0 ? (
-        <List posts={currentPosts} />
-      ) : (
-        <p>게시글이 없습니다.</p>
-      )}
-      {filteredPosts.length > 0 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
-      )}
+      <div className="community-left">
+        <div className="search-bar-wrapper">
+          <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} />
+          <Link to="/write">
+            <button className="write-button-click">글 작성</button>
+          </Link>
+          <Link to="/MyPost">
+            <button className="my-post-button">내 글</button>
+          </Link>
+        </div>
+        {filteredPosts.length > 0 ? (
+          <List posts={currentPosts} />
+        ) : (
+          <p>게시글이 없습니다.</p>
+        )}
+        {filteredPosts.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        )}
+      </div>
+
+      {/* 랭킹 박스 */}
+      <div className="rank-box">
+        <div className="crown">👑</div>
+        <ol>
+          <li>1. 0000</li>
+          <li>2. 0000</li>
+          <li>3. 0000</li>
+        </ol>
+      </div>
     </div>
   );
 };

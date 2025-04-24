@@ -1,93 +1,193 @@
-/* 달력 전체 컨테이너 */
+/* 캘린더 전체 */
 .react-calendar {
   width: 100%;
-  max-width: 720px; /* ✅ 더 크게 확장 */
-  background-color: #2E3D7F;
-  color: white;
+  max-width: 720px;
+  background-color: #a7cff2;
   border-radius: 20px;
   padding: 30px;
   border: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  font-size: 1.15rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  font-family: 'Arial', sans-serif;
+  font-size: 1.1rem;
+  color: #3f528c;
 }
 
-/* 네비게이션 영역 가운데 정렬 유지 */
+/* 네비게이션 바 */
 .react-calendar__navigation {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   margin-bottom: 20px;
+  gap: 8px;
 }
 
-/* 네비게이션 버튼 */
 .react-calendar__navigation button {
-  flex: 0 0 auto;
-  background-color: #A6C8FF;
-  color: #2E3D7F;
-  border-radius: 8px;
+  background-color: #cee1f2;
+  color: #3f528c;
   font-weight: bold;
-  font-size: 1.2rem;
-  padding: 12px;
-  margin: 4px;
-  min-width: 40px;
-  min-height: 40px;
   border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 /* 요일 헤더 */
 .react-calendar__month-view__weekdays {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
   text-transform: uppercase;
   font-weight: bold;
-  color: #b3d1ff;
-  text-align: center;
-  margin-bottom: 10px;
+  color: #3f528c;
 }
 
 .react-calendar__month-view__weekdays__weekday {
   width: calc(100% / 7);
   text-align: center;
   font-size: 0.9rem;
-  box-sizing: border-box;
 }
 
-/* 일요일 강조 */
+/* 일요일 스타일 */
 .react-calendar__month-view__weekdays__weekday:nth-child(1) {
-  color: rgb(255, 80, 80);
-}
-
-/* 날짜 셀 감싸는 영역 */
-.react-calendar__month-view__days {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0;
-  margin: 0;
-  gap: 0;
+  color: #ff5050;
 }
 
 /* 날짜 셀 */
 .react-calendar__tile {
   width: calc(100% / 7);
-  background-color: #A6C8FF;
-  color: #2E3D7F;
-  border-radius: 10px;
-  padding: 16px 0;
-  text-align: center;
+  background-color: #a7cff2;
+  color: #3f528c;
+  border-radius: 12px;
   font-weight: bold;
-  box-sizing: border-box;
+  text-align: center;
+  padding: 16px 0;
+  margin: 4px 0;
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
   border: none;
-  font-size: 1rem;
 }
 
-/* 날짜 숫자 강조 */
-.react-calendar__tile abbr {
-  font-weight: bold;
+/* 오늘 날짜 강조 */
+.react-calendar__tile--now {
+  background-color: #cee1f2;
+  box-shadow: inset 0 0 0 2px #3f528c;
 }
 
 /* 선택된 날짜 */
 .react-calendar__tile--active {
-  background-color: #CEE1F2 !important;
-  color: #2E3D7F !important;
+  background-color: #88A7CF !important;
+  color: white !important;
+}
+
+/* hover 효과 */
+.react-calendar__tile:hover {
+  background-color: #88A7CF;
+  color: white;
+}
+
+/* kcal 텍스트 */
+.react-calendar__tile > div {
+  margin-top: 5px;
+  font-size: 0.75rem;
+  color: #3f528c;
+  font-weight: normal;
+}
+/* 📅 식사 기록 카드 */
+.food-log-section {
+  margin-top: 2rem;
+  padding: 20px;
+  background: #f9fbfd;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  font-family: 'Arial', sans-serif;
+}
+
+/* 날짜 제목 */
+.food-log-section h3 {
+  color: #3f528c;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 리스트 전체 */
+.food-log-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* 리스트 아이템 */
+.food-log-list li {
+  background-color: #ffffff;
+  border: 1px solid #d0e3f0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #3f528c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.food-log-list li:hover {
+  background-color: #e8f0f8;
+}
+
+.food-log-meal {
+  font-weight: bold;
+}
+
+.food-log-kcal {
+  color: #ff5050;
+  font-weight: bold;
+}
+
+
+/* 🟦 3칸 식사 시간 그리드 */
+.meal-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 1.5rem;
+}
+
+.meal-column {
+  flex: 1;
+  background-color: #ffffff;
+  border: 1px solid #d0e3f0;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+}
+
+.meal-column h4 {
+  text-align: center;
+  color: #3f528c;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  border-bottom: 1px solid #d0e3f0;
+  padding-bottom: 5px;
+}
+
+.meal-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.meal-column li {
+  font-size: 0.95rem;
+  padding: 6px 4px;
+  color: #555;
+  border-bottom: 1px dashed #eee;
+}
+
+.meal-column li:last-child {
+  border-bottom: none;
 }
