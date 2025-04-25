@@ -129,7 +129,8 @@ const Calories = ({ userId }) => {
                 </div>
             ))}
           </div>
-          <div className="pagination">
+
+          <div className="calories-pagination">
             <button
               onClick={() => pageGroup > 0 && setPageGroup((g) => g - 1)}
               disabled={pageGroup === 0}
@@ -156,11 +157,6 @@ const Calories = ({ userId }) => {
               다음 &gt;
             </button>
           </div>
-
-
-
-
-
         </>
       )}
       {selectedFood && (
