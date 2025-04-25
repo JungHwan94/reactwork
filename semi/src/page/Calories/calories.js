@@ -15,6 +15,13 @@ const Calories = ({ userId }) => {
   const [pageGroup, setPageGroup] = useState(0);
   const itemsPerPage = 10;
 
+  const getKSTDateString = () => {
+    const now = new Date();
+    const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+    const kst = new Date(utc + 9 * 60 * 60 * 1000);
+    return kst.toISOString().split('T')[0];
+  };
+
   useEffect(() => {
     axios.get('http://localhost:8080/foods')
       .then((res) => {
@@ -77,9 +84,9 @@ const Calories = ({ userId }) => {
   };
 
   const saveFoodLog = () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
+    const todayStr = getKSTDateString();
+    const today = new Date(todayStr);
+  
     const allFoods = Object.entries(meals).flatMap(([mealName, foods]) =>
       foods.map((food) => ({
         userId,
