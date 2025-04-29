@@ -5,8 +5,8 @@ const Item = ({ post, clickView }) => {
   const nav = useNavigate();
 
   const handleClick = () => {
-    clickView(post.id);
-    nav(`/detail/${post.id}`);
+    clickView(post.id);       
+    nav(`/detail/${post.id}`); 
   };
 
     return(
@@ -14,6 +14,7 @@ const Item = ({ post, clickView }) => {
     <tr onClick={handleClick}>
       <td>{post.id}</td>
       <td>{post.title}</td>
+    
       <td>{post.writer}</td>
       <td>{post.date}</td>
       <td>{post.views}</td>

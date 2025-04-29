@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-/* 흰색 박스 컨테이너 */
+
 .sign-up-container {
   background-color: #fff;
   padding: 40px;
@@ -117,7 +117,7 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-/* 캐릭터 선택 원형 이미지 스타일 */
+
 .sign-up-container .character-container {
   display: flex;
   justify-content: center;
@@ -126,12 +126,13 @@ button[type="submit"] {
 }
 
 .sign-up-container .character-container img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 130px;
   border-radius: 50%;
   cursor: pointer;
-  border: 3px solid #ccc;
+  border: 1px solid #ccc;
   transition: border-color 0.3s ease, transform 0.3s ease;
+  margin-top: 30px;
 }
 
 .sign-up-container .character-container img:hover {

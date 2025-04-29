@@ -1,28 +1,105 @@
-/* main.css */
 .main-container {
-  padding: 20px;
-  font-family: 'Arial', sans-serif;
+  padding: 40px 20px;
+  font-family: 'Noto Sans KR', 'Arial', sans-serif;
   text-align: center;
+  background-color: #f9f9fc;
+  min-height: 100vh;
 }
 
+/* 사용자 정보 (키, 몸무게 등) */
 .main-container .user-info {
   margin: 20px 0;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: bold;
+  color: #333;
 }
 
+/* 내 캐릭터 이미지 */
+.main-container img[alt="내 캐릭터"] {
+  width: 300px;
+  border-radius: 16px;
+  margin: 20px 0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 그래프 바깥 감싸는 카드 */
+.main-container .graph-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  height: 300px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+/* 그래프 카드 hover시 약간 떠오르게 */
+.main-container .graph-wrapper:hover {
+  transform: translateY(-4px);
+}
+
+/* 오늘 섭취 칼로리, 운동 칼로리 카드 */
 .main-container .charts {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 30px;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 
+/* 각각 카드 스타일 */
 .main-container .charts > div {
-  background-color: #f5f5f5;
-  padding: 15px;
-  border-radius: 10px;
-  width: 300px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  width: 260px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+/* 카드 hover시 부드럽게 상승 */
+.main-container .charts > div:hover {
+  transform: translateY(-4px);
+}
+
+/* 카드 타이틀 */
+.main-container .charts h4 {
+  font-size: 18px;
+  color: #3f528c;
+  margin-bottom: 8px;
+}
+
+/* 카드 내용 */
+.main-container .charts p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+}
+
+/* 운동 아이콘 */
+.main-container img[alt^="운동"] {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 600px) {
+  .main-container .charts {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-container .charts > div {
+    width: 90%;
+  }
+
+  .main-container img[alt="내 캐릭터"] {
+    width: 220px;
+  }
 }

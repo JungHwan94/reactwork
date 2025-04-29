@@ -10,26 +10,43 @@ const Community = () => {
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [rankers, setRankers] = useState([]); 
   const postsPerPage = 5;
 
+  
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/posts");
+      setPosts(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.error("게시글 불러오기 실패:", error);
+    }
+  };
+
+  
+  const fetchRankers = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/users");
+      const users = response.data;
+
+      const top3 = users
+        .sort((a, b) => (b.challengeScore || 0) - (a.challengeScore || 0))
+        .slice(0, 3);
+
+      setRankers(top3);
+    } catch (error) {
+      console.error("랭킹 불러오기 실패:", error);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/posts")
-      .then((response) => {
-        console.log("받은 데이터:", response.data);
-        setPosts(Array.isArray(response.data) ? response.data : []);
-      })
-      .catch((error) => {
-        console.error("게시글 불러오기 실패:", error);
-        alert("게시글을 불러오는 데 실패했습니다.");
-      });
+    fetchPosts();
+    fetchRankers(); 
   }, []);
 
-  const filteredPosts = Array.isArray(posts)
-    ? posts.filter((post) =>
-        post.title?.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : [];
+  const filteredPosts = posts.filter((post) =>
+    post.title?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
   const currentPosts = filteredPosts.slice(
@@ -43,17 +60,19 @@ const Community = () => {
         <div className="search-bar-wrapper">
           <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} />
           <Link to="/write">
-            <button className="community-write-button">글 작성</button>
+            <button className="write-button">글 작성</button>
           </Link>
           <Link to="/MyPost">
-            <button className="community-write-button">내 글</button>
+            <button className="write-button">내 글</button>
           </Link>
         </div>
+
         {filteredPosts.length > 0 ? (
-          <List posts={currentPosts} />
+          <List posts={currentPosts} fetchPosts={fetchPosts} />
         ) : (
           <p>게시글이 없습니다.</p>
         )}
+        
         {filteredPosts.length > 0 && (
           <Pagination
             currentPage={currentPage}
@@ -63,13 +82,14 @@ const Community = () => {
         )}
       </div>
 
-      {/* 랭킹 박스 */}
       <div className="rank-box">
         <div className="crown">👑</div>
         <ol>
-          <li>1. 0000</li>
-          <li>2. 0000</li>
-          <li>3. 0000</li>
+          {rankers.map((user, index) => (
+            <li key={user.userId}>
+              {index + 1}. {user.name} - {user.challengeScore}점
+            </li>
+          ))}
         </ol>
       </div>
     </div>

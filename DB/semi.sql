@@ -385,6 +385,7 @@ CREATE TABLE challenge_participation (
 );
 
 -- 4. 챌린지 데이터 전체 삽입
+-- 챌린지 검색[33333]
 -- 초급
 INSERT INTO challenges (difficulty, title) VALUES ('초급', '물 2L 마시기');
 INSERT INTO challenges (difficulty, title) VALUES ('초급', '30분 걷기');
@@ -3000,3 +3001,4 @@ DELETE FROM FOODS WHERE NAME IN (
   '개고기전골',
   '개피떡(바람떡)'
 );
+commit;

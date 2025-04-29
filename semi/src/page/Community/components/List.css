@@ -1,57 +1,88 @@
-/* 전체 리스트 컨테이너 */
 .list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    width: 100%;
-    padding: 1rem;
-    align-items: center;
-  }
-  
-  /* 각 게시글 항목 */
-  .list-item {
-    background-color: #cce1f2 !important;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
-    transition: all 0.3s ease; 
-    width: 100%;
-    max-width: 800px;
-  }
-  
-  /* 리스트 항목 호버 효과 */
-  .list-item:hover {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    transform: translateY(-5px); 
-  }
-  
-  /* 게시글 제목 */
-  .list-item h2 {
-    font-size: 1.4rem;
-    color: #333;
-    margin-bottom: 1rem;
-    font-weight: bold;
-  }
-  
-  /* 게시글 내용 */
-  .list-item p {
-    font-size: 1rem;
-    color: #555; 
-    line-height: 1.6;
-    margin-bottom: 0.8rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  
-  /* 링크 스타일 */
-  .post-link {
-    text-decoration: none !important; 
-    color: #333;
-  }
-  
-  /* 링크 호버 효과 */
-  .post-link:hover {
-    color: #3d509a; 
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.list-item {
+  background: linear-gradient(145deg, #ffffff, #f6f6f6);
+  border-radius: 16px;
+  padding: 1.8rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  border: 1px solid #eeeeee;
+}
+
+.list-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+.post-link {
+  text-decoration: none;
+  color: #0b1f66;
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+.post-link:hover {
+  color: #07133d;
+}
+
+.list-item p {
+  color: #555;
+  font-size: 0.95rem;
+  text-align: center;
+  max-width: 85%;
+  margin: 0 auto;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #aaa;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e6e6e6;
+}
+
+.post-meta .author,
+.post-meta .views,
+.post-meta .date {
+  margin: 0 0.5rem;
+}
+
+.admin-tag {
+  background: linear-gradient(45deg, #ff4d4d, #ff7979);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-right: 8px;
+  box-shadow: 0 3px 6px rgba(255, 77, 77, 0.4);
+}
+
+.notice-tag {
+  background: linear-gradient(45deg, #ffa726, #ffb74d);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 18px;
+  margin-right: 8px;
+  box-shadow: 0 2px 5px rgba(255, 167, 38, 0.4);
+}

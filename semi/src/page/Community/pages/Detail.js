@@ -1,33 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import ReplyList from "../components/ReplyList"; // 댓글 추가
+import ReplyList from "../components/ReplyList";
 import './Detail.css';
 
 const Detail = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    axios.get(`http://localhost:8080/posts/${id}`)
-      .then((res) => {
-        setPost(res.data);
-      })
-      .catch((err) => {
-        console.error("게시글 불러오기 실패:", err);
-      });
-  }, [id]);
-
   const currentUser = localStorage.getItem("userId");
 
+  const hasIncreasedView = useRef(false);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8080/posts/${id}`);
+        setPost(res.data);
+      } catch (error) {
+        console.error('게시글 불러오기 실패:', error);
+      }
+    };
+    fetchPost();
+  }, [id]);
+  
   const handleEdit = () => {
     navigate(`/edit/${id}`);
   };
 
   const handleDelete = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      axios.delete(`http://localhost:8080/posts/${id}`)
+      axios.delete(`http://localhost:8080/posts/${id}`, {
+        data: { userId: currentUser },
+      })
         .then(() => {
           alert("삭제 완료되었습니다.");
           navigate("/community");
@@ -43,19 +48,23 @@ const Detail = () => {
 
   return (
     <div className="detail">
-      <h1 className="dtitle">{post.title}</h1>
+      <h1 className="dtitle">
+        {post.isNotice && <span className="notice-tag">[공지]</span>}
+        {post.title}
+      </h1>
       <p className="dname">작성자: {post.userName}</p>
+      <p className="dviews">조회수: {post.views}</p>
       <p className="dcontent">{post.content}</p>
-      <button className="detail-btn" onClick={() => navigate(-1)}>이전</button>
 
-      {currentUser === post.userId && (
+      {(currentUser === post.userId || currentUser === "admin") && (
         <div className="detail-button-group">
           <button className="detail-button edit" onClick={handleEdit}>수정</button>
           <button className="detail-button delete" onClick={handleDelete}>삭제</button>
         </div>
       )}
 
-      {/* ✅ 댓글 리스트 컴포넌트 렌더링 */}
+      <button className="detail-btn" onClick={() => navigate(-1)}>이전</button>
+
       <ReplyList />
     </div>
   );

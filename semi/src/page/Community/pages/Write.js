@@ -1,36 +1,44 @@
 import React, { useState } from "react";
 import axios from "axios";
-import './Write.css';
+import "./Write.css";
 import { useNavigate } from "react-router-dom";
 
 const Write = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const userId = localStorage.getItem("userId"); 
+
+    if (!userId || !password) {
+      alert("로그인이 필요하거나 비밀번호가 누락되었습니다.");
+      return;
+    }
 
     const postData = {
       title,
       content,
-      user: { userId },
+      userId,             
+      passwordHash: password, 
     };
 
-    axios
-      .post("http://localhost:8080/posts", postData)
-      .then((response) => {
-        console.log("게시글 작성 성공:", response.data);
-        navigate("/Community");
-      })
-      .catch((error) => {
-        if (error.response?.status === 404) {
-          console.error("사용자가 존재하지 않습니다.");
-        } else {
-          console.error("게시글 작성 실패:", error);
-        }
-      });
+    try {
+      const response = await axios.post("http://localhost:8080/posts", postData);
+      alert("게시글이 성공적으로 등록되었습니다.");
+      navigate("/community");
+    } catch (error) {
+      if (error.response?.status === 401) {
+        alert("비밀번호가 일치하지 않거나 로그인 정보를 확인하세요.");
+      } else {
+        alert("게시글 작성 중 오류 발생!");
+        console.error("에러 로그:", error);
+      }
+    }
   };
 
   return (
@@ -40,22 +48,25 @@ const Write = () => {
         <input
           className="write-input"
           type="text"
-          placeholder="제목"
+          placeholder="제목을 입력하세요"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
         <textarea
           className="write-textarea"
-          placeholder="내용을 입력해주세요"
+          placeholder="내용을 입력하세요"
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          required
         />
         <input
           className="write-input"
-          type="text"
-          placeholder="사용자ID를 입력해주세요"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
+          type="password"
+          placeholder="비밀번호를 입력하세요"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <div className="write-button-group">
           <button
@@ -64,7 +75,7 @@ const Write = () => {
             onClick={() => {
               setTitle("");
               setContent("");
-              setUserId("");
+              setPassword("");
             }}
           >
             초기화
